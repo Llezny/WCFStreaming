@@ -1,0 +1,7 @@
+D:\GitHub repositories\WCFStreaming\WebClient\bin\Debug\WebClient.exe.config
+D:\GitHub repositories\WCFStreaming\WebClient\bin\Debug\WebClient.exe
+D:\GitHub repositories\WCFStreaming\WebClient\bin\Debug\WebClient.pdb
+D:\GitHub repositories\WCFStreaming\WebClient\obj\Debug\WebClient.csprojAssemblyReference.cache
+D:\GitHub repositories\WCFStreaming\WebClient\obj\Debug\WebClient.csproj.CoreCompileInputs.cache
+D:\GitHub repositories\WCFStreaming\WebClient\obj\Debug\WebClient.exe
+D:\GitHub repositories\WCFStreaming\WebClient\obj\Debug\WebClient.pdb

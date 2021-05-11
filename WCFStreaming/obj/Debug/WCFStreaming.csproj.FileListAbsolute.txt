@@ -1,0 +1,7 @@
+D:\GitHub repositories\WCFStreaming\WCFStreaming\bin\WCFStreaming.dll.config
+D:\GitHub repositories\WCFStreaming\WCFStreaming\bin\WCFStreaming.dll
+D:\GitHub repositories\WCFStreaming\WCFStreaming\bin\WCFStreaming.pdb
+D:\GitHub repositories\WCFStreaming\WCFStreaming\obj\Debug\WCFStreaming.csprojAssemblyReference.cache
+D:\GitHub repositories\WCFStreaming\WCFStreaming\obj\Debug\WCFStreaming.csproj.CoreCompileInputs.cache
+D:\GitHub repositories\WCFStreaming\WCFStreaming\obj\Debug\WCFStreaming.dll
+D:\GitHub repositories\WCFStreaming\WCFStreaming\obj\Debug\WCFStreaming.pdb
