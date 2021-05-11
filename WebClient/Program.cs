@@ -5,23 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebClient{
-    class Program{
+namespace WebClient
+{
+    class Program
+    {
         static string path = @"D:\GitHub repositories\WCFStreaming\dataClient\";
 
-        public class App{
-            public string UploadFile(){
+        public class App
+        {
+            public string UploadFile()
+            {
                 ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
                 Console.WriteLine("Enter file name which you want to upload");
                 var fileName = Console.ReadLine();
                 fileName = path + fileName + ".txt";
 
-                if (File.Exists(fileName)){
+                if (File.Exists(fileName))
+                {
                     var ret = client.UploadFile(File.Open(fileName, FileMode.Open));
                     Console.WriteLine("Uploaded file name: " + ret);
                     return ret;
                 }
-                else{
+                else
+                {
                     Console.WriteLine("File does not exist");
                     return null;
                 }
@@ -36,21 +42,21 @@ namespace WebClient{
             {
                 ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
                 Console.WriteLine("Enter file name which you want to download");
-                var fileName = Console.ReadLine();           
+                var fileName = Console.ReadLine();
                 var stream = client.DownloadFile(fileName);
-                if(stream is null)
+                if (stream is null)
                 {
                     Console.WriteLine("File does not exist");
                     return null;
                 }
-              
+
                 StreamReader reader = new StreamReader(stream);
                 var content = reader.ReadToEnd();
                 File.WriteAllText(path + fileName + ".txt", content);
-                return path + fileName + ".txt" ;
+                return path + fileName + ".txt";
             }
 
-            public void PrintList(string [] list)
+            public void PrintList(string[] list)
             {
                 Console.WriteLine();
                 foreach (var l in list)
@@ -72,50 +78,68 @@ namespace WebClient{
                 return Console.ReadKey(false);
             }
 
-
-
-
-        }
-
-        static void Main(string[] args) {
-            ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
-            App app = new App();
-            ConsoleKeyInfo key;
-            do
+            public string MatrixMultiplication()
             {
-             
-                key = app.DisplayMenu();
-                switch (key.KeyChar.ToString())
+                ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
+                this.PrintList(this.GetClientFilesList());
+
+                Console.WriteLine("Enter name of first matrix");
+                var matrixNameA = Console.ReadLine();
+
+                Console.WriteLine("Enter name of second matrix");
+                var matrixNameB = Console.ReadLine();
+
+                return client.MatrixMultiplication(matrixNameA, matrixNameB);
+            }
+
+            static void Main(string[] args)
+            {
+                ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
+                App app = new App();
+                ConsoleKeyInfo key;
+                do
                 {
-                    case "1":
-                        Console.Clear();
-                        Console.WriteLine("\nClient files:");     
-                        app.PrintList(app.GetClientFilesList());
-                        break;
-                    case "2":
-                        Console.Clear();
-                        Console.WriteLine("\nServer files:");
-                        app.PrintList(client.GetFilesList());
-                        break;
-                    case "3":
-                        Console.Clear();
-                        app.UploadFile();
-                        break;
-                    case "4":
-                        Console.Clear();
-                        app.DownloadFile();
-                        break;
+                    key = app.DisplayMenu();
+                    switch (key.KeyChar.ToString())
+                    {
+                        case "1":
+                            Console.Clear();
+                            Console.WriteLine("\nClient files:");
+                            app.PrintList(app.GetClientFilesList());
+                            break;
+                        case "2":
+                            Console.Clear();
+                            Console.WriteLine("\nServer files:");
+                            app.PrintList(client.GetFilesList());
+                            break;
+                        case "3":
+                            Console.Clear();
+                            Console.WriteLine("\nClient files:");
+                            app.PrintList(app.GetClientFilesList());
+                            app.UploadFile();
+                            break;
+                        case "4":
+                            Console.Clear();
+                            Console.WriteLine("\nServer files:");
+                            app.PrintList(client.GetFilesList());
+                            app.DownloadFile();
+                            break;
+                        case "5":
+                            Console.Clear();
+                            Console.WriteLine("\nFile name: " + app.MatrixMultiplication());
+                            break;
 
-                    default:
-                        Console.Clear();
-          
-                        break;
-                }
-               
-            } while (key.Key != ConsoleKey.Escape);
+                        default:
+                            Console.Clear();
+
+                            break;
+                    }
+
+                } while (key.Key != ConsoleKey.Escape);
 
 
 
+            }
         }
     }
 }

@@ -34,16 +34,15 @@ namespace WCFStreaming
 
         public Stream DownloadFile(string fileName){
 
-            if (File.Exists(dataPath+fileName + ".txt"))
-            {
+            if (File.Exists(dataPath+fileName + ".txt")){
                 MemoryStream stream = new MemoryStream();
                 var bytes = File.ReadAllBytes(dataPath+fileName + ".txt");
                 stream.Write(bytes, 0, bytes.Length);
                 stream.Position = 0;
                 return stream;
             }
-            else
-            {
+
+            else{
                 return null;
             }
         }
