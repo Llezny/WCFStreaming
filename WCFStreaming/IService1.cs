@@ -17,11 +17,18 @@ namespace WCFStreaming
         [OperationContract]
         string MatrixMultiplication(string firstMatrixName, string secondMatrixName);
 
+
+        [OperationContract]
+        string Mandelbrot();
+
+
         [OperationContract]
         string UploadFile(Stream input);
 
+
         [OperationContract]
         Stream DownloadFile(string file);
+
 
         [OperationContract]
         string[] GetFilesList();

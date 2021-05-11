@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace WCFStreaming
 {
-    // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę klasy „Service1” w kodzie, usłudze i pliku konfiguracji.
-    // UWAGA: aby uruchomić klienta testowego WCF w celu przetestowania tej usługi, wybierz plik Service1.svc lub Service1.svc.cs w eksploratorze rozwiązań i rozpocznij debugowanie.
     public class Service1 : IService1
     {
         private string dataPath = @"D:\GitHub repositories\WCFStreaming\dataServer\";
@@ -103,6 +101,68 @@ namespace WCFStreaming
                 return fileName;
             }
         }
+        public string Mandelbrot()
+        {
+            var filename = dataPath + RandomString(7) + ".pgm";
+            int iX, iY;
 
-    }
+            const int iXmax = 300;
+            const int iYmax = 300;
+
+  
+            /* Zoom in */
+            const double CxMin = -2.5;
+            const double CxMax = 1.5;
+            const double CyMin = -2.0;
+            const double CyMax = 2.0;
+            double Cx, Cy;
+
+            double PixelWidth = (CxMax - CxMin) / iXmax;
+            double PixelHeight = (CyMax - CyMin) / iYmax;
+
+            File.WriteAllLines(filename, new string[] {$"P2\n#com\n{iXmax} {iYmax}\n255" });
+
+            double Zx, Zy;
+            double Zx2, Zy2; 
+  
+            int Iteration;
+            const int IterationMax = 50;
+
+            const double EscapeRadius = 2;
+            double ER2 = EscapeRadius * EscapeRadius;
+            for (iY = 0; iY < iYmax; iY++)
+            {
+                Cy = CyMin + iY * PixelHeight;
+                if (Math.Abs(Cy) < PixelHeight / 2) Cy = 0.0;
+                for (iX = 0; iX < iXmax; iX++)
+                {
+                    Cx = CxMin + iX * PixelWidth;
+                    Zx = 0.0;
+                    Zy = 0.0;
+                    Zx2 = Zx * Zx;
+                    Zy2 = Zy * Zy;
+
+                    for (Iteration = 0; Iteration < IterationMax && ((Zx2 + Zy2) < ER2); Iteration++)
+                    {
+                        Zy = 2 * Zx * Zy + Cy;
+                        Zx = Zx2 - Zy2 + Cx;
+                        Zx2 = Zx * Zx;
+                        Zy2 = Zy * Zy;
+                    };
+
+                    if (Iteration == IterationMax)
+                        File.AppendAllText(filename, "0 " );
+    
+                    else
+                        File.AppendAllText(filename, "255 " );
+
+                }
+                File.AppendAllText(filename, "\n");
+            }
+
+            return filename;
+        }
+
+
+        }
 }

@@ -92,6 +92,12 @@ namespace WebClient
                 return client.MatrixMultiplication(matrixNameA, matrixNameB);
             }
 
+            public string Mandelbrot()
+            {
+                ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
+                return client.Mandelbrot();
+            }
+
             static void Main(string[] args)
             {
                 ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
@@ -129,6 +135,11 @@ namespace WebClient
                             Console.WriteLine("\nFile name: " + app.MatrixMultiplication());
                             break;
 
+                        case "6":
+                            Console.Clear();
+                            Console.WriteLine("\nFile name: " + app.Mandelbrot());
+                            break;
+
                         default:
                             Console.Clear();
 
@@ -137,7 +148,7 @@ namespace WebClient
 
                 } while (key.Key != ConsoleKey.Escape);
 
-
+               
 
             }
         }

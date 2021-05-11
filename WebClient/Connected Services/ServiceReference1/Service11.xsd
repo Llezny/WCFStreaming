@@ -17,6 +17,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Mandelbrot">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MandelbrotResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MandelbrotResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UploadFile">
     <xs:complexType>
       <xs:sequence>

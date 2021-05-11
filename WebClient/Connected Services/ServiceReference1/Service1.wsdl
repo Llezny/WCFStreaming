@@ -14,6 +14,12 @@
   <wsdl:message name="IService1_MatrixMultiplication_OutputMessage">
     <wsdl:part name="parameters" element="tns:MatrixMultiplicationResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_Mandelbrot_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mandelbrot" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Mandelbrot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MandelbrotResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_UploadFile_InputMessage">
     <wsdl:part name="parameters" element="tns:UploadFile" />
   </wsdl:message>
@@ -37,6 +43,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/MatrixMultiplication" message="tns:IService1_MatrixMultiplication_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/MatrixMultiplicationResponse" message="tns:IService1_MatrixMultiplication_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="Mandelbrot">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Mandelbrot" message="tns:IService1_Mandelbrot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/MandelbrotResponse" message="tns:IService1_Mandelbrot_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UploadFile">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/UploadFile" message="tns:IService1_UploadFile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/UploadFileResponse" message="tns:IService1_UploadFile_OutputMessage" />
@@ -54,6 +64,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="MatrixMultiplication">
       <soap:operation soapAction="http://tempuri.org/IService1/MatrixMultiplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mandelbrot">
+      <soap:operation soapAction="http://tempuri.org/IService1/Mandelbrot" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
