@@ -22,10 +22,10 @@ namespace WebClient.ServiceReference1 {
         System.Threading.Tasks.Task<string> MatrixMultiplicationAsync(string firstMatrixName, string secondMatrixName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Mandelbrot", ReplyAction="http://tempuri.org/IService1/MandelbrotResponse")]
-        string Mandelbrot();
+        string Mandelbrot(WCFStreaming.MandelbrotData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Mandelbrot", ReplyAction="http://tempuri.org/IService1/MandelbrotResponse")]
-        System.Threading.Tasks.Task<string> MandelbrotAsync();
+        System.Threading.Tasks.Task<string> MandelbrotAsync(WCFStreaming.MandelbrotData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UploadFile", ReplyAction="http://tempuri.org/IService1/UploadFileResponse")]
         string UploadFile(System.IO.Stream input);
@@ -81,12 +81,12 @@ namespace WebClient.ServiceReference1 {
             return base.Channel.MatrixMultiplicationAsync(firstMatrixName, secondMatrixName);
         }
         
-        public string Mandelbrot() {
-            return base.Channel.Mandelbrot();
+        public string Mandelbrot(WCFStreaming.MandelbrotData data) {
+            return base.Channel.Mandelbrot(data);
         }
         
-        public System.Threading.Tasks.Task<string> MandelbrotAsync() {
-            return base.Channel.MandelbrotAsync();
+        public System.Threading.Tasks.Task<string> MandelbrotAsync(WCFStreaming.MandelbrotData data) {
+            return base.Channel.MandelbrotAsync(data);
         }
         
         public string UploadFile(System.IO.Stream input) {

@@ -19,7 +19,7 @@ namespace WCFStreaming
 
 
         [OperationContract]
-        string Mandelbrot();
+        string Mandelbrot(MandelbrotData data);
 
 
         [OperationContract]
@@ -33,9 +33,18 @@ namespace WCFStreaming
         [OperationContract]
         string[] GetFilesList();
         
+    }
 
-
-        }
+    [DataContract]
+    public class MandelbrotData
+    {
+        [DataMember]
+        public int xOffset;
+        [DataMember]
+        public int yOffset;
+        [DataMember]
+        public int size;
+    }
 
 
 

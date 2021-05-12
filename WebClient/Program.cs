@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WCFStreaming;
 
 namespace WebClient
 {
@@ -95,7 +96,20 @@ namespace WebClient
             public string Mandelbrot()
             {
                 ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
-                return client.Mandelbrot();
+                MandelbrotData data = new MandelbrotData();
+
+                Console.WriteLine("Enter size of image");
+                data.size = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter x offset");
+                data.xOffset = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter y offset");
+                data.yOffset = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Generating mandelbrot image...");
+
+                return client.Mandelbrot(data);
             }
 
             static void Main(string[] args)
@@ -140,16 +154,19 @@ namespace WebClient
                             Console.WriteLine("\nFile name: " + app.Mandelbrot());
                             break;
 
+                        case "7":
+                            Console.Clear();
+                            return;
+
                         default:
                             Console.Clear();
-
                             break;
                     }
 
                 } while (key.Key != ConsoleKey.Escape);
 
-               
 
+                
             }
         }
     }

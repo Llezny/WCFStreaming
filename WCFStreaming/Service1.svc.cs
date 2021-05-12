@@ -101,20 +101,21 @@ namespace WCFStreaming
                 return fileName;
             }
         }
-        public string Mandelbrot()
+        public string Mandelbrot(MandelbrotData data)
         {
+           
             var filename = dataPath + RandomString(7) + ".pgm";
             int iX, iY;
 
-            const int iXmax = 300;
-            const int iYmax = 300;
+            int iXmax = data.size;
+            int iYmax = data.size;
 
   
             /* Zoom in */
-            const double CxMin = -2.5;
-            const double CxMax = 1.5;
-            const double CyMin = -2.0;
-            const double CyMax = 2.0;
+            double CxMin = -2.5 + data.xOffset;
+            double CxMax = 1.5 + data.xOffset;
+            double CyMin = -2.0 + data.yOffset;
+            double CyMax = 2.0 + data.yOffset;
             double Cx, Cy;
 
             double PixelWidth = (CxMax - CxMin) / iXmax;
