@@ -23,7 +23,8 @@ namespace WebClient
 
                 if (File.Exists(fileName))
                 {
-                    var ret = client.UploadFile(File.Open(fileName, FileMode.Open));
+                    var file = File.Open(fileName, FileMode.Open);
+                    var ret = client.UploadFile(file);
                     Console.WriteLine("Uploaded file name: " + ret);
                     return ret;
                 }
@@ -44,13 +45,13 @@ namespace WebClient
                 ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
                 Console.WriteLine("Enter file name which you want to download");
                 var fileName = Console.ReadLine();
-                var stream = client.DownloadFile(fileName);
-                if (stream is null)
+               
+                if (!File.Exists(fileName))
                 {
                     Console.WriteLine("File does not exist");
                     return null;
                 }
-
+                var stream = client.DownloadFile(fileName);
                 StreamReader reader = new StreamReader(stream);
                 var content = reader.ReadToEnd();
                 File.WriteAllText(path + fileName + ".txt", content);

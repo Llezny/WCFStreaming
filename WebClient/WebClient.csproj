@@ -76,6 +76,12 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WCFStreaming\WCFStreaming.csproj">
+      <Project>{F798E94C-7688-46BA-8F22-D65ED4B6E785}</Project>
+      <Name>WCFStreaming</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
@@ -92,12 +98,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WCFStreaming\WCFStreaming.csproj">
-      <Project>{F798E94C-7688-46BA-8F22-D65ED4B6E785}</Project>
-      <Name>WCFStreaming</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
