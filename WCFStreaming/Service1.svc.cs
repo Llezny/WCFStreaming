@@ -105,7 +105,7 @@ namespace WCFStreaming
         {
            
             var filename = dataPath + RandomString(7) + ".pgm";
-            int iX, iY;
+            
 
             int iXmax = data.size;
             int iYmax = data.size;
@@ -116,26 +116,33 @@ namespace WCFStreaming
             double CxMax = 1.5 + data.xOffset;
             double CyMin = -2.0 + data.yOffset;
             double CyMax = 2.0 + data.yOffset;
-            double Cx, Cy;
+           
 
             double PixelWidth = (CxMax - CxMin) / iXmax;
             double PixelHeight = (CyMax - CyMin) / iYmax;
 
             File.WriteAllLines(filename, new string[] {$"P2\n#com\n{iXmax} {iYmax}\n255" });
 
-            double Zx, Zy;
-            double Zx2, Zy2; 
-  
-            int Iteration;
-            const int IterationMax = 50;
+ 
+            const int IterationMax = 100;
 
+            int[][] image = new int[iYmax][];
+            for (int i = 0; i < image.Length; i++)
+                image[i] = new int[iXmax];
+            
             const double EscapeRadius = 2;
             double ER2 = EscapeRadius * EscapeRadius;
-            for (iY = 0; iY < iYmax; iY++)
+            int threadsCount = Environment.ProcessorCount;
+            Parallel.For(0, iYmax-1, new ParallelOptions { MaxDegreeOfParallelism = threadsCount }, (iY,state) =>
             {
+
+                double Zx, Zy;
+                double Zx2, Zy2;
+                double Cx, Cy;
+                int Iteration;
                 Cy = CyMin + iY * PixelHeight;
                 if (Math.Abs(Cy) < PixelHeight / 2) Cy = 0.0;
-                for (iX = 0; iX < iXmax; iX++)
+                for (int iX = 0; iX < iXmax-1; iX++)
                 {
                     Cx = CxMin + iX * PixelWidth;
                     Zx = 0.0;
@@ -152,15 +159,15 @@ namespace WCFStreaming
                     };
 
                     if (Iteration == IterationMax)
-                        File.AppendAllText(filename, "0 " );
-    
+                        image[iY][iX] = ((int)255 / threadsCount) * (int)Task.CurrentId;
+
                     else
-                        File.AppendAllText(filename, "255 " );
+                        image[iY][iX] = 0;
 
                 }
-                File.AppendAllText(filename, "\n");
-            }
-
+            });
+            File.AppendAllLines(filename, image
+                    .Select(line => String.Join(" ", line)));
             return filename;
         }
 
