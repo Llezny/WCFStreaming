@@ -14,6 +14,53 @@ namespace WebClient
 
         public class App
         {
+            //https://www.somacon.com/p576.php
+            public string GetBytesReadable(long i)
+            {
+                // Get absolute value
+                long absolute_i = (i < 0 ? -i : i);
+                // Determine the suffix and readable value
+                string suffix;
+                double readable;
+                if (absolute_i >= 0x1000000000000000) // Exabyte
+                {
+                    suffix = "EB";
+                    readable = (i >> 50);
+                }
+                else if (absolute_i >= 0x4000000000000) // Petabyte
+                {
+                    suffix = "PB";
+                    readable = (i >> 40);
+                }
+                else if (absolute_i >= 0x10000000000) // Terabyte
+                {
+                    suffix = "TB";
+                    readable = (i >> 30);
+                }
+                else if (absolute_i >= 0x40000000) // Gigabyte
+                {
+                    suffix = "GB";
+                    readable = (i >> 20);
+                }
+                else if (absolute_i >= 0x100000) // Megabyte
+                {
+                    suffix = "MB";
+                    readable = (i >> 10);
+                }
+                else if (absolute_i >= 0x400) // Kilobyte
+                {
+                    suffix = "KB";
+                    readable = i;
+                }
+                else
+                {
+                    return i.ToString("0 B"); // Byte
+                }
+                readable = (readable / 1024);
+                return readable.ToString("0.### ") + suffix;
+            }
+
+
             public string UploadFile()
             {
                 ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
@@ -37,7 +84,7 @@ namespace WebClient
 
             public string[] GetClientFilesList()
             {
-                var filesList = Directory.GetFiles(path, "*.txt");
+                var filesList = Directory.GetFiles(path);
                 return filesList.Length > 0 ? filesList : new string[] { "There is no uploaded files yet!" };
             }
             public string DownloadFile()
@@ -58,12 +105,22 @@ namespace WebClient
                 return path + fileName + ".txt";
             }
 
-            public void PrintList(string[] list)
+
+            public void PrintClientFiles()
             {
-                Console.WriteLine();
-                foreach (var l in list)
-                    Console.WriteLine(l);
-                return;
+                DirectoryInfo di = new DirectoryInfo(path);
+                FileInfo[] fiArr = di.GetFiles();
+                foreach (FileInfo f in fiArr)
+                    Console.WriteLine($"The size of { f.Name} is {GetBytesReadable(f.Length)}.");
+            }
+
+
+            public void PrintServerFiles()
+            {
+                ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
+                var fileList = client.GetFilesList();
+                foreach (FileInfo f in fileList)
+                    Console.WriteLine($"The size of { f.Name} is {GetBytesReadable(f.Length)}.");
             }
 
             public ConsoleKeyInfo DisplayMenu()
@@ -83,7 +140,8 @@ namespace WebClient
             public string MatrixMultiplication()
             {
                 ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
-                this.PrintList(this.GetClientFilesList());
+
+                this.PrintClientFiles();
 
                 Console.WriteLine("Enter name of first matrix");
                 var matrixNameA = Console.ReadLine();
@@ -126,23 +184,23 @@ namespace WebClient
                         case "1":
                             Console.Clear();
                             Console.WriteLine("\nClient files:");
-                            app.PrintList(app.GetClientFilesList());
+                            app.PrintClientFiles();
                             break;
                         case "2":
                             Console.Clear();
                             Console.WriteLine("\nServer files:");
-                            app.PrintList(client.GetFilesList());
+                            app.PrintServerFiles();
                             break;
                         case "3":
                             Console.Clear();
                             Console.WriteLine("\nClient files:");
-                            app.PrintList(app.GetClientFilesList());
+                            app.PrintClientFiles();
                             app.UploadFile();
                             break;
                         case "4":
                             Console.Clear();
                             Console.WriteLine("\nServer files:");
-                            app.PrintList(client.GetFilesList());
+                            app.PrintServerFiles();
                             app.DownloadFile();
                             break;
                         case "5":

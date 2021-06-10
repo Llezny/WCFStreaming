@@ -31,7 +31,7 @@ namespace WCFStreaming
 
 
         [OperationContract]
-        string[] GetFilesList();
+        FileInfo[] GetFilesList();
         
     }
 

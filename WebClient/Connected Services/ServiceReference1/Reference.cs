@@ -40,10 +40,10 @@ namespace WebClient.ServiceReference1 {
         System.Threading.Tasks.Task<System.IO.Stream> DownloadFileAsync(string file);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFilesList", ReplyAction="http://tempuri.org/IService1/GetFilesListResponse")]
-        string[] GetFilesList();
+        System.IO.FileInfo[] GetFilesList();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFilesList", ReplyAction="http://tempuri.org/IService1/GetFilesListResponse")]
-        System.Threading.Tasks.Task<string[]> GetFilesListAsync();
+        System.Threading.Tasks.Task<System.IO.FileInfo[]> GetFilesListAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -105,11 +105,11 @@ namespace WebClient.ServiceReference1 {
             return base.Channel.DownloadFileAsync(file);
         }
         
-        public string[] GetFilesList() {
+        public System.IO.FileInfo[] GetFilesList() {
             return base.Channel.GetFilesList();
         }
         
-        public System.Threading.Tasks.Task<string[]> GetFilesListAsync() {
+        public System.Threading.Tasks.Task<System.IO.FileInfo[]> GetFilesListAsync() {
             return base.Channel.GetFilesListAsync();
         }
     }

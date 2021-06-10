@@ -45,9 +45,13 @@ namespace WCFStreaming
             }
         }
 
-        public string[] GetFilesList(){
-            var filesList = Directory.GetFiles(dataPath, "*.txt");
-            return filesList.Length > 0 ? filesList : new string[]{"There is no uploaded files yet!"};
+
+
+        public FileInfo[] GetFilesList(){
+            DirectoryInfo di = new DirectoryInfo(dataPath);
+            FileInfo[] fiArr = di.GetFiles();
+            // var filesList = Directory.GetFiles(dataPath);
+            return fiArr.Length > 0 ? fiArr : null;
          }
 
         public string MatrixMultiplication(string firstMatrixName, string secondMatrixName){
@@ -104,7 +108,7 @@ namespace WCFStreaming
         public string Mandelbrot(MandelbrotData data)
         {
            
-            var filename = dataPath + RandomString(7) + ".pgm";
+            var filename = dataPath + "mand_" + RandomString(7) + ".pgm";
             
 
             int iXmax = data.size;
